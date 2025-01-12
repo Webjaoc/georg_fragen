@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego de la Rueda de Preguntas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f7f7f7;
+    }
+    .wheel-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 50px auto;
+    }
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border: 5px solid #333;
+      border-radius: 50%;
+      background: conic-gradient(
+        #FF5733 0deg, #FF5733 60deg,
+        #33C3FF 60deg, #33C3FF 120deg,
+        #FFC300 120deg, #FFC300 180deg,
+        #DAF7A6 180deg, #DAF7A6 240deg,
+        #FF5733 240deg, #FF5733 300deg,
+        #33C3FF 300deg, #33C3FF 360deg
+      );
+      position: relative;
+      transform: rotate(0deg);
+      transition: transform 2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    }
+    .pointer {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      background-color: #000;
+      clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    }
+    #spin-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #spin-btn:hover {
+      background-color: #0056b3;
+    }
+    #question {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="wheel-container">
+    <div class="pointer"></div>
+    <div class="wheel" id="wheel"></div>
+  </div>
+  <button id="spin-btn">Girar la rueda</button>
+  <div id="question"></div>
+
+  <script>
+    // Lista de preguntas
+    const questions = [
+      "¿Cuál es tu color favorito?",
+      "¿Qué harías con un millón de dólares?",
+      "¿Cuál es tu comida favorita?",
+      "¿Cuál es tu película preferida?",
+      "¿Qué lugar del mundo te gustaría visitar?",
+      
+      "¿Cuál es tu hobby favorito?"
+    ];
+
+    const wheel = document.getElementById('wheel');
+    const spinBtn = document.getElementById('spin-btn');
+    const questionDiv = document.getElementById('question');
+
+    spinBtn.addEventListener('click', () => {
+      // Generar un giro aleatorio
+      const randomDegrees = Math.floor(Math.random() * 360) + 3600; // Al menos 10 giros completos
+      wheel.style.transform = `rotate(${randomDegrees}deg)`;
+
+      // Mostrar una pregunta después de 2 segundos
+      setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * questions.length);
+        questionDiv.textContent = questions[randomIndex];
+      }, 2000); // Esperar 2 segundos para sincronizar con la animación
+    });
+  </script>
+</body>
+</html>
