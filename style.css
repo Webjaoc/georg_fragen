@@ -66,7 +66,7 @@ h1{
 .section:nth-child(6) { transform: rotate(300deg); background-color: #e91e63; }
 
 button {
-  padding: 10px 20px;
+  padding: 10px 10px;
   font-size: 16px;
   background-color: #1df306;
   color: rgb(46, 4, 233);
@@ -78,6 +78,7 @@ button {
 
 button:hover {
   background-color: #0056b3;
+  color: #f0f0f0;
 }
 
 .hidden {
