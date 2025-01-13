@@ -7,6 +7,7 @@ const spinButton3 = document.querySelector("#btn3");
 const questionDiv1 = document.querySelector("#question1");
 const questionDiv2 = document.querySelector("#question2");
 const questionDiv3 = document.querySelector("#question3");
+let countdownDiv = document.getElementById("countdown");
 
 // Lista de preguntas
 const questions = [
@@ -377,8 +378,6 @@ const questions = [
   
 ];
 
-
-
 spinButton1.addEventListener("click", () => {
   // Ocultar la pregunta anterior
   questionDiv1.classList.add("hidden");
@@ -388,15 +387,40 @@ spinButton1.addEventListener("click", () => {
   wheel1.style.transform = `rotate(${randomDegrees}deg)`;
 
   // Calcular el resultado
-  const selectedSection = Math.floor((randomDegrees % 360) /1); // Cada pregunta ocupa 2 grados
+  const selectedSection = Math.floor((randomDegrees % 360) / 1); // Cada pregunta ocupa 2 grados
 
   // Mostrar la pregunta después de 2 segundos
   setTimeout(() => {
     const question = questions[selectedSection];
     questionDiv1.textContent = question;
     questionDiv1.classList.remove("hidden");
+
+    // Iniciar cuenta regresiva
+    startCountdown(70); // 70 segundos = 1 minuto y 10 segundos
   }, 2000);
 });
+
+function startCountdown(duration) {
+  let countdownDiv = document.getElementById("countdown");
+   
+
+  let remainingTime = duration; // Tiempo restante en segundos
+
+  const timer = setInterval(() => {
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+
+    // Mostrar el tiempo en formato mm:ss
+    countdownDiv.textContent = `time: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+    if (remainingTime <= 0) {
+      clearInterval(timer); // Detener el temporizador cuando llegue a 0
+      countdownDiv.textContent = "¡Fertig!";
+    } else {
+      remainingTime--;
+    }
+  }, 1000);
+}
 
 spinButton2.addEventListener("click", () => {
   // Ocultar la pregunta anterior
@@ -414,8 +438,12 @@ spinButton2.addEventListener("click", () => {
     const question = questions[selectedSection];
     questionDiv2.textContent = question;
     questionDiv2.classList.remove("hidden");
+    startCountdown(70);
   }, 2000);
 });
+
+
+
 
 spinButton3.addEventListener("click", () => {
   // Ocultar la pregunta anterior
@@ -433,5 +461,8 @@ spinButton3.addEventListener("click", () => {
     const question = questions[selectedSection];
     questionDiv3.textContent = question;
     questionDiv3.classList.remove("hidden");
+    startCountdown(70);
   }, 2000);
+  
 });
+
