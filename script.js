@@ -381,6 +381,8 @@ const questions = [
 spinButton1.addEventListener("click", () => {
   // Ocultar la pregunta anterior
   questionDiv1.classList.add("hidden");
+  spinButton2.disabled = true;
+  spinButton3.disabled = true;
 
   // Generar un giro aleatorio
   const randomDegrees = Math.floor(Math.random() * 360) + 1000; // Al menos 2 giros completos
@@ -396,31 +398,10 @@ spinButton1.addEventListener("click", () => {
     questionDiv1.classList.remove("hidden");
 
     // Iniciar cuenta regresiva
-    startCountdown(70); // 70 segundos = 1 minuto y 10 segundos
+    startCountdown1(70); // 70 segundos = 1 minuto y 10 segundos
   }, 2000);
 });
 
-function startCountdown(duration) {
-  let countdownDiv = document.getElementById("countdown");
-   
-
-  let remainingTime = duration; // Tiempo restante en segundos
-
-  const timer = setInterval(() => {
-    const minutes = Math.floor(remainingTime / 60);
-    const seconds = remainingTime % 60;
-
-    // Mostrar el tiempo en formato mm:ss
-    countdownDiv.textContent = `time: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-
-    if (remainingTime <= 0) {
-      clearInterval(timer); // Detener el temporizador cuando llegue a 0
-      countdownDiv.textContent = "¡Fertig!";
-    } else {
-      remainingTime--;
-    }
-  }, 1000);
-}
 
 spinButton2.addEventListener("click", () => {
   // Ocultar la pregunta anterior
@@ -438,12 +419,9 @@ spinButton2.addEventListener("click", () => {
     const question = questions[selectedSection];
     questionDiv2.textContent = question;
     questionDiv2.classList.remove("hidden");
-    startCountdown(70);
+    startCountdown2(70);
   }, 2000);
 });
-
-
-
 
 spinButton3.addEventListener("click", () => {
   // Ocultar la pregunta anterior
@@ -461,8 +439,74 @@ spinButton3.addEventListener("click", () => {
     const question = questions[selectedSection];
     questionDiv3.textContent = question;
     questionDiv3.classList.remove("hidden");
-    startCountdown(70);
+    startCountdown3(70);
   }, 2000);
   
 });
 
+function startCountdown1(duration) {
+  spinButton2.disabled = true;
+  spinButton3.disabled = true;
+  let countdownDiv = document.getElementById("countdown");
+  let remainingTime = duration; // Tiempo restante en segundos
+  const timer = setInterval(() => {
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+
+    // Mostrar el tiempo en formato mm:ss
+    countdownDiv.textContent = `time: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+    if (remainingTime <= 0) {
+      clearInterval(timer); // Detener el temporizador cuando llegue a 0
+      countdownDiv.textContent = "¡Fertig!";
+      spinButton2.disabled = false;
+      spinButton3.disabled = false;
+    } else {
+      remainingTime--;
+    }
+  }, 1000);
+}
+function startCountdown2(duration) {
+  spinButton1.disabled = true;
+  spinButton3.disabled = true;
+  let countdownDiv = document.getElementById("countdown");
+  let remainingTime = duration; // Tiempo restante en segundos
+  const timer = setInterval(() => {
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+
+    // Mostrar el tiempo en formato mm:ss
+    countdownDiv.textContent = `time: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+    if (remainingTime <= 0) {
+      clearInterval(timer); // Detener el temporizador cuando llegue a 0
+      countdownDiv.textContent = "¡Fertig!";
+      spinButton1.disabled = false;
+      spinButton3.disabled = false;
+    } else {
+      remainingTime--;
+    }
+  }, 1000);
+}
+function startCountdown3(duration) {
+  spinButton1.disabled = true;
+  spinButton2.disabled = true;
+  let countdownDiv = document.getElementById("countdown");
+  let remainingTime = duration; // Tiempo restante en segundos
+  const timer = setInterval(() => {
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+
+    // Mostrar el tiempo en formato mm:ss
+    countdownDiv.textContent = `time: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+    if (remainingTime <= 0) {
+      clearInterval(timer); // Detener el temporizador cuando llegue a 0
+      countdownDiv.textContent = "¡Fertig!";
+      spinButton1.disabled = false;
+      spinButton2.disabled = false;
+    } else {
+      remainingTime--;
+    }
+  }, 1000);
+}
