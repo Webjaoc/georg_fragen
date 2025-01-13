@@ -1,14 +1,30 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: #f0f0f0;
+  background-image: url(./teacher-3679814_640.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+h1{
+  width: 80%;
+  background-color: #03a9f4;
+  color: #f0f0f0;
+  margin: auto;
+  margin-top: 0px;
+  padding: 20px;
+  font-size: 30px;
+  font-family:cursive;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+
 }
 
 .container {
   margin-top: 50px;
-  
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,8 +32,8 @@ body {
 }
 
 .wheel-container {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   margin: auto;
   margin-bottom: 100px;
 }
@@ -52,9 +68,9 @@ body {
 button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
+  background-color: #1df306;
+  color: rgb(46, 4, 233);
+  border:1px solid  #f0f0f0;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 50px;
@@ -73,8 +89,15 @@ button:hover {
 }
 .question {
   margin-top: 20px;
-  font-size: 18px;
+  font-size: 25px;
   font-weight: bold;
-  color: #333;
-  
+  color: white; 
+}
+hr{
+  width: 80%;
+}
+@media (max-width: 1000px) {
+  .container{
+    flex-direction: column;
+  }
 }
