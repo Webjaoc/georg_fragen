@@ -42,6 +42,14 @@ h1{
   height: 100px;
   margin: auto;
   margin-bottom: 100px;
+  position: relative;
+  transition: transform 1s ease;
+}
+.move{
+  transform: translateX(-500px); 
+}
+.move_question{
+  transform: translateX(1000px); 
 }
 
 .wheel {
@@ -92,16 +100,20 @@ button:hover {
 }
 .question_container{
     width: 70%;
-    
 }
 .question {
   margin-top: 20px;
   font-size: 25px;
   font-weight: bold;
   color: white; 
+  position: relative;
+    transition: transform 1s ease;
 }
 hr{
   width: 80%;
+}
+.wc_hidden{
+  transform: translateX(-500px); 
 }
 @media (max-width: 1000px) {
   .container{

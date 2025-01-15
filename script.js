@@ -8,6 +8,9 @@ const questionDiv1 = document.querySelector("#question1");
 const questionDiv2 = document.querySelector("#question2");
 const questionDiv3 = document.querySelector("#question3");
 let countdownDiv = document.getElementById("countdown");
+let wc1 = document.querySelector('.wc1');
+let wc2 = document.querySelector('.wc2');
+let wc3 = document.querySelector('.wc3');
 
 // Lista de preguntas
 const questions = [
@@ -381,8 +384,6 @@ const questions = [
 spinButton1.addEventListener("click", () => {
   // Ocultar la pregunta anterior
   questionDiv1.classList.add("hidden");
-  spinButton2.disabled = true;
-  spinButton3.disabled = true;
 
   // Generar un giro aleatorio
   const randomDegrees = Math.floor(Math.random() * 360) + 1000; // Al menos 2 giros completos
@@ -444,9 +445,11 @@ spinButton3.addEventListener("click", () => {
   
 });
 
-function startCountdown1(duration) {
-  spinButton2.disabled = true;
-  spinButton3.disabled = true;
+function startCountdown1(duration){
+  questionDiv2.classList.toggle('move_question');
+  questionDiv3.classList.toggle('move_question');
+  wc2.classList.toggle('move');
+  wc3.classList.toggle('move');
   let countdownDiv = document.getElementById("countdown");
   let remainingTime = duration; // Tiempo restante en segundos
   const timer = setInterval(() => {
@@ -459,16 +462,24 @@ function startCountdown1(duration) {
     if (remainingTime <= 0) {
       clearInterval(timer); // Detener el temporizador cuando llegue a 0
       countdownDiv.textContent = "¡Fertig!";
-      spinButton2.disabled = false;
-      spinButton3.disabled = false;
+      spinButton1.disabled = true;
+      spinButton1.style.opacity = .5;
+      spinButton1.textContent = "Fertig!";
+      questionDiv1.style.opacity = .5;
+      questionDiv2.classList.toggle('move_question');
+      questionDiv3.classList.toggle('move_question');
+      wc2.classList.toggle('move');
+      wc3.classList.toggle('move');
     } else {
       remainingTime--;
     }
   }, 1000);
 }
 function startCountdown2(duration) {
-  spinButton1.disabled = true;
-  spinButton3.disabled = true;
+  questionDiv1.classList.toggle('move_question');
+  questionDiv3.classList.toggle('move_question');
+  wc1.classList.toggle('move');
+  wc3.classList.toggle('move');
   let countdownDiv = document.getElementById("countdown");
   let remainingTime = duration; // Tiempo restante en segundos
   const timer = setInterval(() => {
@@ -481,16 +492,25 @@ function startCountdown2(duration) {
     if (remainingTime <= 0) {
       clearInterval(timer); // Detener el temporizador cuando llegue a 0
       countdownDiv.textContent = "¡Fertig!";
-      spinButton1.disabled = false;
-      spinButton3.disabled = false;
+      spinButton2.disabled = true;
+      spinButton2.style.opacity = .5;
+      spinButton2.textContent = "Fertig!";
+      questionDiv2.style.opacity = .5;
+      questionDiv1.classList.toggle('move_question');
+      questionDiv3.classList.toggle('move_question');
+      wc1.classList.toggle('move');
+      wc3.classList.toggle('move');
+
     } else {
       remainingTime--;
     }
   }, 1000);
 }
 function startCountdown3(duration) {
-  spinButton1.disabled = true;
-  spinButton2.disabled = true;
+  questionDiv1.classList.toggle('move_question');
+  questionDiv2.classList.toggle('move_question');
+  wc1.classList.toggle('move');
+  wc2.classList.toggle('move');
   let countdownDiv = document.getElementById("countdown");
   let remainingTime = duration; // Tiempo restante en segundos
   const timer = setInterval(() => {
@@ -503,8 +523,14 @@ function startCountdown3(duration) {
     if (remainingTime <= 0) {
       clearInterval(timer); // Detener el temporizador cuando llegue a 0
       countdownDiv.textContent = "¡Fertig!";
-      spinButton1.disabled = false;
-      spinButton2.disabled = false;
+      spinButton3.disabled = true;
+      spinButton3.style.opacity = .5;
+      spinButton3.textContent = "Fertig!";
+      questionDiv3.style.opacity = .5;
+      questionDiv1.classList.toggle('move_question');
+      questionDiv2.classList.toggle('move_question');
+      wc1.classList.toggle('move');
+      wc2.classList.toggle('move');
     } else {
       remainingTime--;
     }
