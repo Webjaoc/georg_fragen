@@ -390,7 +390,7 @@ spinButton1.addEventListener("click", () => {
   wheel1.style.transform = `rotate(${randomDegrees}deg)`;
 
   // Calcular el resultado
-  const selectedSection = Math.floor((randomDegrees % 360) / 1); // Cada pregunta ocupa 2 grados
+  const selectedSection = Math.floor((randomDegrees % 360) / 1); // Cada pregunta ocupa 1 grados
 
   // Mostrar la pregunta después de 2 segundos
   setTimeout(() => {
@@ -402,7 +402,6 @@ spinButton1.addEventListener("click", () => {
     startCountdown1(70); // 70 segundos = 1 minuto y 10 segundos
   }, 2000);
 });
-
 
 spinButton2.addEventListener("click", () => {
   // Ocultar la pregunta anterior
@@ -474,6 +473,7 @@ function startCountdown1(duration){
       remainingTime--;
     }
   }, 1000);
+  
 }
 function startCountdown2(duration) {
   questionDiv1.classList.toggle('move_question');
