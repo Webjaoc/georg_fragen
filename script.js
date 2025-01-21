@@ -1,16 +1,25 @@
 const wheel1 = document.querySelector("#wheel_1");
 const wheel2 = document.querySelector("#wheel_2");
 const wheel3 = document.querySelector("#wheel_3");
+
 const spinButton1 = document.querySelector("#btn1");
 const spinButton2 = document.querySelector("#btn2");
 const spinButton3 = document.querySelector("#btn3");
 const questionDiv1 = document.querySelector("#question1");
 const questionDiv2 = document.querySelector("#question2");
 const questionDiv3 = document.querySelector("#question3");
-let countdownDiv = document.getElementById("countdown");
+const btnRestart = document.getElementById("restart");
 let wc1 = document.querySelector('.wc1');
 let wc2 = document.querySelector('.wc2');
 let wc3 = document.querySelector('.wc3');
+const timerDisplay = document.getElementById("countdown");
+const startStopBtn = document.getElementById("btn-start");
+const resetBtn = document.getElementById("resetBtn");
+let countdownInterval;
+let remainingTime = 70;
+let isRunning = false;
+
+
 
 // Lista de preguntas
 const questions = [
@@ -397,9 +406,6 @@ spinButton1.addEventListener("click", () => {
     const question = questions[selectedSection];
     questionDiv1.textContent = question;
     questionDiv1.classList.remove("hidden");
-
-    // Iniciar cuenta regresiva
-    startCountdown1(70); // 70 segundos = 1 minuto y 10 segundos
   }, 2000);
 });
 
@@ -444,95 +450,73 @@ spinButton3.addEventListener("click", () => {
   
 });
 
-function startCountdown1(duration){
-  questionDiv2.classList.toggle('move_question');
-  questionDiv3.classList.toggle('move_question');
-  wc2.classList.toggle('move');
-  wc3.classList.toggle('move');
-  let countdownDiv = document.getElementById("countdown");
-  let remainingTime = duration; // Tiempo restante en segundos
-  const timer = setInterval(() => {
+// Función para actualizar el temporizador en pantalla
+function updateTimerDisplay() {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
-
-    // Mostrar el tiempo en formato mm:ss
-    countdownDiv.textContent = `time: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-
-    if (remainingTime <= 0) {
-      clearInterval(timer); // Detener el temporizador cuando llegue a 0
-      countdownDiv.textContent = "¡Fertig!";
-      spinButton1.disabled = true;
-      spinButton1.style.opacity = .5;
-      spinButton1.textContent = "Fertig!";
-      questionDiv1.style.opacity = .5;
-      questionDiv2.classList.toggle('move_question');
-      questionDiv3.classList.toggle('move_question');
-      wc2.classList.toggle('move');
-      wc3.classList.toggle('move');
-    } else {
-      remainingTime--;
-    }
-  }, 1000);
-  
+    timerDisplay.textContent = 
+        `Time: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
-function startCountdown2(duration) {
-  questionDiv1.classList.toggle('move_question');
-  questionDiv3.classList.toggle('move_question');
-  wc1.classList.toggle('move');
-  wc3.classList.toggle('move');
-  let countdownDiv = document.getElementById("countdown");
-  let remainingTime = duration; // Tiempo restante en segundos
-  const timer = setInterval(() => {
-    const minutes = Math.floor(remainingTime / 60);
-    const seconds = remainingTime % 60;
 
-    // Mostrar el tiempo en formato mm:ss
-    countdownDiv.textContent = `time: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+// Función para iniciar o detener el temporizador
 
-    if (remainingTime <= 0) {
-      clearInterval(timer); // Detener el temporizador cuando llegue a 0
-      countdownDiv.textContent = "¡Fertig!";
-      spinButton2.disabled = true;
-      spinButton2.style.opacity = .5;
-      spinButton2.textContent = "Fertig!";
-      questionDiv2.style.opacity = .5;
-      questionDiv1.classList.toggle('move_question');
-      questionDiv3.classList.toggle('move_question');
-      wc1.classList.toggle('move');
-      wc3.classList.toggle('move');
-
+function startStopTimer() {
+  const spinButtons =  document.querySelectorAll('.spinButton');
+  spinButtons.forEach(button => {
+    button.disabled = true;
+    button.style.opacity = .5;
+    button.textContent = "gesperrt!"
+});
+    
+    if (isRunning) {
+        // Detener el temporizador
+        clearInterval(countdownInterval);
+        isRunning = false;
+        startStopBtn.value = "Start";
     } else {
-      remainingTime--;
+        // Iniciar el temporizador
+        countdownInterval = setInterval(() => {
+            if (remainingTime > 0) {
+                remainingTime--;
+                updateTimerDisplay();
+            } else {
+                clearInterval(countdownInterval);
+                timerDisplay.textContent = "Fertig!!!";
+                isRunning = false;
+                spinButtons.forEach(button => {
+                  button.disabled = false;
+                  button.style.opacity = 1;
+                  button.textContent = "Drehen!";
+              });
+            }
+        }, 1000);
+        isRunning = true;
+        startStopBtn.value = "Stop";
+       
     }
-  }, 1000);
 }
-function startCountdown3(duration) {
-  questionDiv1.classList.toggle('move_question');
-  questionDiv2.classList.toggle('move_question');
-  wc1.classList.toggle('move');
-  wc2.classList.toggle('move');
-  let countdownDiv = document.getElementById("countdown");
-  let remainingTime = duration; // Tiempo restante en segundos
-  const timer = setInterval(() => {
-    const minutes = Math.floor(remainingTime / 60);
-    const seconds = remainingTime % 60;
 
-    // Mostrar el tiempo en formato mm:ss
-    countdownDiv.textContent = `time: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-
-    if (remainingTime <= 0) {
-      clearInterval(timer); // Detener el temporizador cuando llegue a 0
-      countdownDiv.textContent = "¡Fertig!";
-      spinButton3.disabled = true;
-      spinButton3.style.opacity = .5;
-      spinButton3.textContent = "Fertig!";
-      questionDiv3.style.opacity = .5;
-      questionDiv1.classList.toggle('move_question');
-      questionDiv2.classList.toggle('move_question');
-      wc1.classList.toggle('move');
-      wc2.classList.toggle('move');
-    } else {
-      remainingTime--;
-    }
-  }, 1000);
+// Función para reiniciar el temporizador
+function resetTimer() {
+    clearInterval(countdownInterval);
+    remainingTime = 70; 
+    updateTimerDisplay();
+    isRunning = false;
+    startStopBtn.value = "Start";
 }
+
+// Asignar eventos a los botones
+startStopBtn.addEventListener("click", startStopTimer);
+resetBtn.addEventListener("click", resetTimer);
+
+// Inicializar el temporizador en pantalla
+updateTimerDisplay();
+
+btnRestart.addEventListener("click", ()=>{
+  reloadPlay();
+});
+
+function reloadPlay(){
+  location.reload();
+}
+

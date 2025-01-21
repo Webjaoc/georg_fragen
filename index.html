@@ -8,13 +8,20 @@
 </head>
 <body>
   <div id="head">
+    <input type="button" id="restart" value="Restart">
     <h1>Dreh das Rad und beantworte die Frage!</h1>
-    <div id="countdown">time: 1:10</div>
+    <div id="time">
+      <div>
+        <input type="reset" class="btn-reset" id="resetBtn" value="Reset">
+        <input type="button" id="btn-start" value="Start!">
+      </div>
+        <div id="countdown">time: 1:10</div>
+      </div>
   </div>
     
     <div class="container">
         
-        <div class="wheel-container wc1">
+        <div class="wheel-container" id="wheelContainer1">
           <div class="wheel" id="wheel_1">
             <div class="section">?</div>
             <div class="section">?</div>
@@ -33,7 +40,7 @@
     <hr>
     <div class="container">
         
-        <div class="wheel-container wc2">
+        <div class="wheel-container" id="wheelContainer2">
           <div class="wheel" id="wheel_2">
             <div class="section">?</div>
             <div class="section">?</div>
@@ -52,7 +59,7 @@
     <hr>
     <div class="container">
         
-        <div class="wheel-container wc3">
+        <div class="wheel-container" id="wheelContainer3">
           <div class="wheel" id="wheel_3" >
             <div class="section">?</div>
             <div class="section">?</div>
