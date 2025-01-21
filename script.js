@@ -459,9 +459,9 @@ function updateTimerDisplay() {
 }
 
 // Función para iniciar o detener el temporizador
-
+const spinButtons =  document.querySelectorAll('.spinButton');
 function startStopTimer() {
-  const spinButtons =  document.querySelectorAll('.spinButton');
+  
   spinButtons.forEach(button => {
     button.disabled = true;
     button.style.opacity = .5;
@@ -503,6 +503,11 @@ function resetTimer() {
     updateTimerDisplay();
     isRunning = false;
     startStopBtn.value = "Start";
+    spinButtons.forEach(button => {
+      button.disabled = false;
+      button.style.opacity = 1;
+      button.textContent = "Drehen!";
+  });
 }
 
 // Asignar eventos a los botones
